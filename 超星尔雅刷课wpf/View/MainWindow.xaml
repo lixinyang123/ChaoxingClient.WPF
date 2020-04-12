@@ -1,0 +1,133 @@
+﻿<pu:PUWindow x:Class="超星尔雅刷课wpf.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:超星尔雅刷课wpf.View"
+        xmlns:pu="clr-namespace:Panuon.UI;assembly=Panuon.UI"
+        xmlns:browser="clr-namespace:Microsoft.Toolkit.Wpf.UI.Controls;assembly=Microsoft.Toolkit.Wpf.UI.Controls.WebView"
+        mc:Ignorable="d"
+        Title="超星尔雅刷课" MinHeight="700" MinWidth="1000"
+        Loaded="Window_Loaded"
+        AnimationStyle="Gradual"
+        Closing="PUWindow_Closing"
+        WindowStartupLocation="CenterScreen"
+        FontSize="11">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="OperationBar" Visibility="Collapsed">
+
+            <!--导航栏-->
+            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Height="40">
+
+                <!--主页-->
+                <pu:PUButton Name="home" Width="60" Click="Home_Click" BorderThickness="0" ButtonStyle="Hollow" CoverBrush="OrangeRed">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="&#xE13D;" FontFamily="segoe mdl2 assets" HorizontalAlignment="Center"/>
+                        <TextBlock Text="主页"/>
+                    </StackPanel>
+                </pu:PUButton>
+
+                <!--后退-->
+                <pu:PUButton Name="back" Width="60" Click="Back_Click" BorderThickness="0" ButtonStyle="Hollow" CoverBrush="Yellow">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="&#xE0C4;" FontFamily="segoe mdl2 assets" HorizontalAlignment="Center"/>
+                        <TextBlock Text="后退"/>
+                    </StackPanel>
+                </pu:PUButton>
+                
+                <!--退出登录-->
+                <pu:PUButton Name="reset" Width="60" Click="Reset_Click"  BorderThickness="0" ButtonStyle="Hollow" CoverBrush="GreenYellow">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="&#xE1E0;" FontFamily="segoe mdl2 assets" HorizontalAlignment="Center"/>
+                        <TextBlock Text="退出登录"/>
+                    </StackPanel>
+                </pu:PUButton>
+
+                <!--弹出页面-->
+                <pu:PUButton Name="openbrowser" Width="60" Click="Openbrowser_Click"  BorderThickness="0" ButtonStyle="Hollow" CoverBrush="Purple">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="&#xE909;" FontFamily="segoe mdl2 assets" HorizontalAlignment="Center"/>
+                        <TextBlock Text="弹出页面"/>
+                    </StackPanel>
+                </pu:PUButton>
+
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                <!--静音-->
+                <pu:PUCheckBox Name="mute" Width="75" Click="ResetScript_Click" BorderThickness="0" CoverBrush="Orange" CheckBoxStyle="Button">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="&#xE198;" FontFamily="segoe mdl2 assets" HorizontalAlignment="Center"/>
+                        <TextBlock Text="视频静音"/>
+                    </StackPanel>
+                </pu:PUCheckBox>
+
+                <!--开始刷课-->
+                <pu:PUCheckBox Name="btn_Start" Width="75" Click="Button_Click" IsEnabled="True" BorderThickness="0" CoverBrush="Orange" CheckBoxStyle="Button">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="&#xE102;" FontFamily="segoe mdl2 assets" HorizontalAlignment="Center"/>
+                        <TextBlock Text="开始刷课"/>
+                    </StackPanel>
+                </pu:PUCheckBox>
+
+                <!--自动答题-->
+                <pu:PUCheckBox Name="auto_answer" Width="75" Click="ResetScript_Click" IsChecked="True" BorderThickness="0" CoverBrush="Orange" CheckBoxStyle="Button">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="&#xE134;" FontFamily="segoe mdl2 assets" HorizontalAlignment="Center"/>
+                        <TextBlock Text="自动答题"/>
+                    </StackPanel>
+                </pu:PUCheckBox>
+
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+
+                <!--题目搜索框-->
+                <pu:PUButton Name="searchBtn" Width="60" Click="Btn_search_Click"  BorderThickness="0" ButtonStyle="Hollow" CoverBrush="Pink">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="&#xE094;" FontFamily="segoe mdl2 assets" HorizontalAlignment="Center"/>
+                        <TextBlock Text="搜索题目"/>
+                    </StackPanel>
+                </pu:PUButton>
+
+                <!--访问官网-->
+                <pu:PUButton Name="officialBtn" Width="60" Click="OfficialBtn_Click"  BorderThickness="0" ButtonStyle="Hollow" CoverBrush="OrangeRed">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="&#xE0A5;" FontFamily="segoe mdl2 assets" HorizontalAlignment="Center"/>
+                        <TextBlock Text="访问官网"/>
+                    </StackPanel>
+                </pu:PUButton>
+
+                <!--反馈中心-->
+                <pu:PUButton Name="feedback" Width="60" Click="Feedback_Click"  BorderThickness="0" ButtonStyle="Hollow" CoverBrush="BlueViolet">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="&#xE789;" FontFamily="segoe mdl2 assets" HorizontalAlignment="Center"/>
+                        <TextBlock Text="反馈中心"/>
+                    </StackPanel>
+                </pu:PUButton>
+
+            </StackPanel>
+
+        </Grid>
+
+        <browser:WebView Name="webview" Grid.Row="1" Source="http://passport2.chaoxing.com/login" 
+                         NewWindowRequested="Webview_NewWindowRequested" 
+                         NavigationStarting="Webview_NavigationStarting"
+                         NavigationCompleted="Webview_NavigationCompleted"/>
+
+        <Grid Grid.Row="2" Background="WhiteSmoke">
+            <TextBlock x:Name="startWarning" Text="刷课中..... 请勿操作页面 ！！！" FontWeight="Bold"
+                       Margin="10,0,0,0" Foreground="Red" Visibility="Collapsed"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        </Grid>
+
+    </Grid>
+</pu:PUWindow>
